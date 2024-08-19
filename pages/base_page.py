@@ -1,6 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
 
 class BasePage:
     def __init__(self, driver):
@@ -18,6 +19,17 @@ class BasePage:
         except TimeoutException:
             print(f"要素が見つかりませんでした: {locator}")
             return None
+    
+    def is_text_present(self, text, timeout=10):
+        """
+        ページ内に指定したテキストが存在するかを確認します。
+        存在すれば True を返し、存在しなければ False を返します。
+        """
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.TAG_NAME, "body"), text))
+            return True
+        except TimeoutException:
+            return False
 
     def click(self, *locator, timeout=10):
         """

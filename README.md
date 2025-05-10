@@ -8,7 +8,6 @@ To run the tests, use the following command:
 ```
 python -m unittest discover -s tests
 ```
-
 ## Requirements
 - Python 3.x
 - selenium==4.0.0
